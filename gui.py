@@ -16,7 +16,7 @@ class Gui():
         self.voted_users = set()
 
         self.vote_count_label = Label(base, text="John - 0 Jane - 0 Total - 0")
-        self.name_label = Label(base, text="Your Name:")
+        self.name_label = Label(base, text="County Name:")
         self.name_entry = Entry(base)
         self.vote_label = Label(base, text="Num. votes:")
         self.vote_entry = Entry(base)
@@ -81,6 +81,10 @@ class Gui():
             self.status_label.config(text="You have already voted.")
             return False
 
+        if self.get_number_of_votes() == 0:
+            self.status_label.config(text="Enter a valid vote number.")
+            return False
+
         self.voted_users.add(name)
         self.save_vote_to_csv(name, candidate)
         self.status_label.config(text="Vote recorded. Thank you!")
@@ -116,7 +120,7 @@ class Gui():
         try:
             votes = int(self.vote_entry.get())
 
-            if votes < 0:
+            if votes < 1:
                 raise TypeError
                 
             self.incorrect_value_label.config(text=f"")
@@ -125,7 +129,7 @@ class Gui():
             self.incorrect_value_label.config(text=f"Please enter a numerical value")
             return 0
         except TypeError:
-            self.incorrect_value_label.config(text=f"Please enter a positive number")
+            self.incorrect_value_label.config(text=f"Please enter one or more total votes")
             return 0
 
     def save_vote_to_csv(self, name, candidate) -> None:

@@ -6,7 +6,7 @@ def main() -> None:
     '''
     window = Tk()
     window.title("Project Part 1 - Voting App")
-    window.geometry('330x240')
+    window.geometry('330x300')
     window.resizable(False, False)
     Gui(window)
     window.mainloop()
